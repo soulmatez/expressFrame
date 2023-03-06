@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "63e1b59e49de158887e39167"
+  },
+  "roleIds": "63ef1",
+  "user": {
+    "createBy": "admin",
+    "createTime": "2023-02-20 13:00:00",
+    "updateBy": "admin",
+    "updateTime": "2023-02-21 08:35:08",
+    "remark": "测试",
+    "deptId": "63eef78301265bf8f374f87a",
+    "userName": "yh0001",
+    "nickName": "用户0031",
+    "email": "yh@163.com",
+    "sex": "2",
+    "phonenumber": "13333333331",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2023-02-20 13:02:58",
+    "dept": {
+      "_id": {
+        "$oid": "63eef78301265bf8f374f87a"
+      },
+      "createBy": null,
+      "createTime": null,
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "parentId": "0",
+      "ancestors": null,
+      "deptName": "部门名称",
+      "orderNum": "0",
+      "status": "0",
+      "parentName": null,
+      "children": []
+    },
+    "password": "123456",
+    "avatar": "http://580.wcname.cn/static/img/profile.7f02b7ee.jpeg"
+  }
+}]

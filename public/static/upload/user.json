@@ -1,0 +1,82 @@
+[{
+  "_id": {
+    "$oid": "63e1b59e49de158887e39167"
+  },
+  "roleIds": "63ef1",
+  "user": {
+    "createBy": "admin",
+    "createTime": "2023-02-20 13:00:00",
+    "updateBy": "admin",
+    "updateTime": "2023-02-21 08:35:08",
+    "remark": "测试",
+    "deptId": "63eef78301265bf8f374f87a",
+    "userName": "yh0034",
+    "nickName": "用户0034",
+    "email": "yh@163.com",
+    "sex": "2",
+    "phonenumber": "15888888845",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2023-02-20 13:02:58",
+    "dept": {
+      "_id": {
+        "$oid": "63eef78301265bf8f374f87a"
+      },
+      "createBy": null,
+      "createTime": null,
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "parentId": "0",
+      "ancestors": null,
+      "deptName": "绍兴市总行政",
+      "orderNum": "0",
+      "status": "0",
+      "parentName": null,
+      "children": []
+    },
+    "password": "123456",
+    "avatar": "http://580.wcname.cn/static/img/profile.7f02b7ee.jpeg"
+  }
+},{
+  "_id": {
+    "$oid": "63f33b44d48f41f10498f4f5"
+  },
+  "roleIds": "63ef1c7401265bf8f374f882",
+  "user": {
+    "createBy": "admin",
+    "createTime": "2023-02-20 17:20:04",
+    "updaateBy": "admin",
+    "updateTime": "2023-02-20 17:26:28",
+    "remark": "测试",
+    "deptId": "63eef78301265bf8f374f87a",
+    "userName": "yh0035",
+    "nickName": "用户0035",
+    "email": "953005025@qq.com",
+    "sex": "1",
+    "phonenumber": "166645353563",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2023-02-20 17:20:04",
+    "dept": {
+      "_id": {
+        "$oid": "63eef78301265bf8f374f87a"
+      },
+      "createBy": null,
+      "createTime": null,
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "parentId": "0",
+      "ancestors": null,
+      "deptName": "绍兴市总行政",
+      "orderNum": "0",
+      "status": "0",
+      "parentName": null,
+      "children": []
+    },
+    "password": "1234567",
+    "updateBy": "admin"
+  },
+  "__v": 0
+}]
