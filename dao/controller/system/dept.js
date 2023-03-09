@@ -31,6 +31,7 @@ const dept_list_data = async(req, res) => {
     data.forEach(item => {
         list.push({
             value: item._id,
+            _id: item._id,
             label: item.deptName,
             children: [],
             parentId: item.parentId,
@@ -39,7 +40,7 @@ const dept_list_data = async(req, res) => {
             }
         })
     })
-    const array = list.toTree('0', 'value', 'parentId', 'children')
+    const array = list.toTree('0')
     res.json({
         code: 200,
         msg: "获取成功",

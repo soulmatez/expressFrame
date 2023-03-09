@@ -19,12 +19,14 @@ const { get_base_userInfo } = require('../base').default
  */
 const user_list_data = async(req, res) => {
     let { pageNum, pageSize, keywords, status, deptId } = req.query;
+    console.log(pageNum, pageSize, keywords, status, deptId)
     const limitNum = parseInt(pageSize);
     const skipNum = (parseInt(pageNum) - 1) * limitNum;
     const findParams = {}
     const orWhere = ['userName', 'nickName', 'phonenumber']
     const orParams = []
-    if(status) Object.assign(findParams, {'user.status': status, 'user.deptId': deptId})
+    if(status) Object.assign(findParams, {'user.status': status})
+    if(deptId) Object.assign(findParams, {'user.deptId': deptId})
     if(keywords) orWhere.forEach(item => {
         if(item == 'nickName'){
             orParams.push({[`user.${item}`]: {

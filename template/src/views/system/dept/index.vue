@@ -253,7 +253,7 @@ onMounted(() => {
     <el-table
       v-loading="loading"
       :data="deptList"
-      row-key="id"
+      row-key="_id"
       default-expand-all
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       @selection-change="handleSelectionChange"

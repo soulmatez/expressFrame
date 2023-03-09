@@ -1,6 +1,4 @@
 const { connect, connection } = require('mongoose');
-
-const mongoose = require('mongoose')
 const redis = require("redis");
 const config = require('../package.json');
 

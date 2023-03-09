@@ -46,11 +46,12 @@ const get_menu_table = async (req,res) => {
     const findParams = {}
     if(name) Object.assign(findParams, { 'meta.title': name })
     const data = await menuModel.find(findParams);
-    console.log(data.toTree("0"))
+    console.log(data)
+    // data: recursionOtherArray(data.length == 1 && data[0].parentId != '0' ? data : data.toTree("0"))
     res.json({
         code: 200,
 		msg: "获取成功",
-        data: recursionOtherArray(data.length == 1 && data[0].parentId != '0' ? data : data.toTree("0"))
+        data
 	})
 }
 

@@ -59,18 +59,18 @@ app.all("*",function(req,res,next){
         next();
 
         // 公共写入日志
-        res.on('finish', (err) => {
-          client.get(req.headers['authorization'], async function(err, uid){
-            console.log(uid)
-            console.log(`request for ${req.baseUrl}${req.url} finished with status ${res.statusCode}`);
-          })
-        });
+        // res.on('finish', (err) => {
+        //   client.get(req.headers['authorization'], async function(err, uid){
+        //     console.log(uid)
+        //     console.log(`request for ${req.baseUrl}${req.url} finished with status ${res.statusCode}`);
+        //   })
+        // });
 
         //响应超时处理
-        res.on('timeout', function(){
-          console.log('服务器繁忙')
-        })
-        res.setTimeout(3000)  //设置超时的时间
+        // res.on('timeout', function(){
+        //   console.log('服务器繁忙')
+        // })
+        // res.setTimeout(3000)  //设置超时的时间
       }else{
         res.status(401).json({
           code: 402,
