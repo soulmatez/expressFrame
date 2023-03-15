@@ -1,40 +1,31 @@
 /*
  * @Author: Soulmate
  * @Date: 2023-02-17 15:50:12
- * @LastEditTime: 2023-03-15 10:45:56
+ * @LastEditTime: 2023-03-14 16:26:58
  * @LastEditors: Soulmate
  * @Description: 
- * @FilePath: \template\src\api\system\dept.ts
+ * @FilePath: \template\src\api\system\log.ts
  * 版权声明
  */
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import { DeptFormData, DeptItem, DeptQueryParam, Option, DeptResult } from '@/types';
+import { DeptFormData, LogQueryParam, LogPageResult } from '@/types';
+
 
 /**
- * 部门树形表格
+ * 获取日志列表
  *
  * @param queryParams
  */
-export function listTableDepartments(
-  queryParams?: DeptQueryParam
-): AxiosPromise<DeptItem[]> {
-  return request({
-    url: '/depts/getDeptTreeData',
-    method: 'post',
-    data: queryParams,
-  });
-}
-
-/**
- * 获取部门列表
- */
-export function listSelectDepartments(): AxiosPromise<Option[]> {
-  return request({
-    url: "/depts/getDeptList",
-    method: "get",
-  });
-}
+export function listLogPages(
+    queryParams: LogQueryParam
+  ): AxiosPromise<LogPageResult> {
+    return request({
+      url: '/logs/page',
+      method: 'get',
+      params: queryParams,
+    });
+  }
 
 /**
  * 获取部门详情
@@ -69,20 +60,20 @@ export function addDept(data: DeptFormData) {
  */
 export function updateDept(id: string, data: DeptFormData) {
   return request({
-    url: `/depts/updateDept/${id}`,
+    url: `/depts/${id}`,
     method: 'put',
     data: data,
   });
 }
 
 /**
- * 删除部门
+ * 删除日志
  *
  * @param ids
  */
-export function deleteDept(ids: string) {
+export function deleteLog(ids: string) {
   return request({
-    url: `/depts/delDept/${ids}`,
+    url: `/logs/${ids}`,
     method: 'delete',
   });
 }

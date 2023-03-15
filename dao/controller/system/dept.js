@@ -11,7 +11,6 @@ const dept_tree_data = async(req, res) => {
     const findParams = {}
     if(deptName) Object.assign(findParams, { deptName })
     if(status != undefined) Object.assign(findParams, { status })
-    console.log(findParams, 'findParams')
     const data = await deptModel.find(findParams);
     res.json({
         code: 200,

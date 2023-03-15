@@ -19,7 +19,6 @@ const { get_base_userInfo } = require('../base').default
  */
 const user_list_data = async(req, res) => {
     let { pageNum, pageSize, keywords, status, deptId } = req.query;
-    console.log(pageNum, pageSize, keywords, status, deptId)
     const limitNum = parseInt(pageSize);
     const skipNum = (parseInt(pageNum) - 1) * limitNum;
     const findParams = {}
@@ -73,6 +72,7 @@ const asyncFunc = (roleIdArray) => {
 const user_Info_data = (req, res) => {
     //这里演示查询所有用户,find不传参数为查询所有用户
     client.get(req.headers['authorization'], async function(err, uid){
+        // console.log(err, uid)
         // 如果redis不存在token，登录失效
         if(err) res.status(401).json({
             code: 402,

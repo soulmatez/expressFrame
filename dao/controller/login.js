@@ -3,6 +3,7 @@ const { setToken } = require("../../utils/authotoken").default
 const { setCaptcha } = require("../../utils/index").default
 const { _pubkey, _prikey, decrypt } = require('../../utils/keyStore').default
 const client = require('../../config/database').client
+var logController = require('./system/log.js').default
 
 //处理登录操作
 const employee_login = async(req, res) => {
@@ -19,11 +20,21 @@ const employee_login = async(req, res) => {
             })
         }
         // 生成token
-        setToken(username, data._id).then((token) => {
+        setToken(username, data._id).then(async (token) => {
             // 将token存储到redis
             client.set(token, data._id.toString(), function(err, res){
                 client.expire(token, 60 * 60)
             })
+            // 公共写入日志
+            await logController.log_add_controller({
+                uid: data._id,
+                requestUrl: '/oauth/login',
+                status: 200,
+                requestMethod: req.method.toLowerCase(),
+                requestHost: req.host,
+                requestBody: {}
+            }, true)
+
             res.json({
                 code: 200,
                 msg: "登录成功",
@@ -52,9 +63,12 @@ const employee_sign = async (req, res) => {
 
 //处理注销操作
 const employee_logout = (req, res) => {
-    res.json({
-        code: 200,
-        msg: "注销成功"
+    client.set(req.headers['authorization'], '', function(err, rs){
+        client.expire(req.headers['authorization'], 0)
+        res.json({
+            code: 200,
+            msg: "注销成功"
+        })
     })
 }
 

@@ -1,7 +1,7 @@
 /*
  * @Author: Soulmate
  * @Date: 2022-06-22 10:00:08
- * @LastEditTime: 2023-02-24 17:10:54
+ * @LastEditTime: 2023-03-15 10:11:53
  * @LastEditors: Soulmate
  * @Description: 
  * @FilePath: \template\src\api\system\menu.ts
@@ -80,7 +80,7 @@ export function addMenu(pid: string, data: MenuFormData) {
  */
 export function updateMenu(id: string, pid: string, data: MenuFormData) {
   return request({
-    url: `/menus/${id}/${pid}`,
+    url: `/menus/updateMenu/${id}/${pid}`,
     method: 'put',
     data,
   });
@@ -93,7 +93,7 @@ export function updateMenu(id: string, pid: string, data: MenuFormData) {
  */
 export function deleteMenus(ids: string, pid: string, data: any) {
   return request({
-    url: `/menus/${ids}/${pid}`,
+    url: `/menus/delMenu/${ids}/${pid}`,
     method: 'delete',
     data
   });

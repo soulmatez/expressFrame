@@ -1,7 +1,7 @@
 /*
  * @Author: Soulmate
  * @Date: 2023-02-13 17:29:50
- * @LastEditTime: 2023-02-21 11:22:48
+ * @LastEditTime: 2023-03-14 15:50:57
  * @LastEditors: Soulmate
  * @Description: 
  * @FilePath: \template\src\types\api\base.d.ts
@@ -29,4 +29,5 @@ export interface Option {
   value: string;
   label: string;
   children?: Option[];
+  name: string
 }

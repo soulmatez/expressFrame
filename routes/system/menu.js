@@ -35,13 +35,13 @@ router.post("/addMenu/:pid", menuController.menu_add_controller)
  * 菜单管理
  *  - 修改菜单
  */
-router.put("/:id/:pid", menuController.menu_update_controller)
+router.put("/updateMenu/:id/:pid", menuController.menu_update_controller)
 
 /**
  * 菜单管理
  *  - 删除菜单
  */
-router.delete("/:id/:pid", menuController.menu_del_controller)
+router.delete("/delMenu/:id/:pid", menuController.menu_del_controller)
 
 /**
  * 菜单管理

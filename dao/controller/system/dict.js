@@ -78,9 +78,9 @@ const dict_add_controller = async (req,res) => {
  */
 const dict_update_controller = async (req,res) => {
     let { id } = req.params;
-    let { status, name, remark, list } = req.body;
+    let { status, name, remark } = req.body;
     const data = await dictModel.updateOne({ _id: id }, {
-        $set: { status, name, remark, list }
+        $set: { status, name, remark }
     });
     res.json({
         code: 200,
@@ -151,10 +151,10 @@ const dict_item_add_controller = async (req,res) => {
  * @param {*} res 
  */
 const dict_item_update_controller = async (req,res) => {
-    let { id, code } = req.params;
-    let { name, sort, status, value, remark } = req.body;
+    let { id } = req.params;
+    let { name, sort, status, value, remark, dictCode } = req.body;
     const data = await dictModel.updateOne({
-        code: code
+        code: dictCode
     },{ 
         $set: { 
             "list.$[listItem].name": name,
@@ -181,9 +181,10 @@ const dict_item_update_controller = async (req,res) => {
  * @param {*} res 
  */
 const dict_item_del_controller = async (req,res) => {
-    let { code, ids } = req.params;
+    let { ids } = req.params;
+    let { dictCode } = req.params;
     const data = await dictModel.updateOne({
-        code: code
+        code: dictCode
     },{ 
         "$pull": { 
             "list": {

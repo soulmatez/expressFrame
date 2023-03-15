@@ -1,7 +1,7 @@
 /*
  * @Author: Soulmate
  * @Date: 2022-06-20 09:13:00
- * @LastEditTime: 2023-03-05 11:05:51
+ * @LastEditTime: 2023-03-14 13:15:55
  * @LastEditors: Soulmate
  * @Description: 
  * @FilePath: \template\src\types\index.d.ts
@@ -26,4 +26,5 @@ export * from './api/system/role'
 export * from './api/system/dept'
 export * from './api/system/perm'
 export * from './api/system/dict'
+export * from './api/system/log'
 export * from './api/components/index'

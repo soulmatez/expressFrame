@@ -34,13 +34,13 @@ router.post("/addDept", deptController.dept_add_controller)
  * 部门管理
  *  - 修改部门信息
  */
-router.put("/:id", deptController.dept_update_controller)
+router.put("/updateDept/:id", deptController.dept_update_controller)
 
 /**
  * 部门管理
  *  - 删除部门
  */
-router.delete("/:ids", deptController.dept_del_controller)
+router.delete("/delDept/:ids", deptController.dept_del_controller)
 
 
 

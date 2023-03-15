@@ -1,7 +1,7 @@
 /*
  * @Author: Soulmate
  * @Date: 2023-02-24 16:37:58
- * @LastEditTime: 2023-03-06 09:59:05
+ * @LastEditTime: 2023-03-15 10:24:08
  * @LastEditors: Soulmate
  * @Description: 
  * @FilePath: \template\src\api\system\dict.ts
@@ -68,7 +68,7 @@ export function addDict(data: DictFormData) {
  */
 export function updateDict(id: number, data: DictFormData) {
   return request({
-    url: `/dicts/${id}`,
+    url: `/dicts/updateDict/${id}`,
     method: 'put',
     data: data,
   });
@@ -80,7 +80,7 @@ export function updateDict(id: number, data: DictFormData) {
  */
 export function deleteDict(ids: string) {
   return request({
-    url: `/dicts/${ids}`,
+    url: `/dicts/delDict/${ids}`,
     method: 'delete',
   });
 }
@@ -119,7 +119,7 @@ export function getDictItemDetail(id: number): AxiosPromise<DictItemFormData> {
  */
 export function addDictItem(data: any) {
   return request({
-    url: `/dicts/items/add`,
+    url: `/dicts/addDictItems`,
     method: 'post',
     data: data,
   });
@@ -132,8 +132,9 @@ export function addDictItem(data: any) {
  * @param data
  */
 export function updateDictItem({ dictItemId, dictCode }: any, data: any) {
+  Object.assign(data, { dictCode })
   return request({
-    url: `/dicts/items/${dictItemId}/${dictCode}`,
+    url: `/dicts/updateDictItems/${dictItemId}`,
     method: 'put',
     data: data,
   });
@@ -145,14 +146,17 @@ export function updateDictItem({ dictItemId, dictCode }: any, data: any) {
  */
 export function deleteDictItem(dictCode: string, ids: string) {
   return request({
-    url: `/dicts/items/${dictCode}/${ids}`,
+    url: `/dicts/delDictItems/${ids}`,
     method: 'delete',
+    data: {
+      dictCode
+    }
   });
 }
 
 
 /**
- * 获取部门列表
+ * 根据字典code获取详情
  */
 export function listDictsByCode(code: string): AxiosPromise<DeptResult> {
   return request({

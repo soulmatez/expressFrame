@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ejs = require('ejs')
+var logController = require('./dao/controller/system/log.js').default
 
 require('./config/database.js')
 const client = require('./config/database').client
@@ -15,6 +16,7 @@ var usersRouter = require('./routes/system/users');
 var rolesRouter = require('./routes/system/roles');
 var deptsRouter = require('./routes/system/depts');
 var dictsRouter = require('./routes/system/dicts');
+var logsRouter = require('./routes/system/logs');
 
 var app = express();
 app.use(cookieParser())
@@ -57,14 +59,38 @@ app.all("*",function(req,res,next){
           client.expire(token, 60 * 60)
         })
         next();
-
         // 公共写入日志
-        // res.on('finish', (err) => {
-        //   client.get(req.headers['authorization'], async function(err, uid){
-        //     console.log(uid)
-        //     console.log(`request for ${req.baseUrl}${req.url} finished with status ${res.statusCode}`);
-        //   })
-        // });
+        res.on('finish', (err) => {
+          client.get(req.headers['authorization'], async function(err, uid){
+            let likeArr = `${req.baseUrl}${req.url}`.split('/');
+            let newArr = likeArr.map(item => {
+              if(item != undefined && item != '' && item.length < 24) return item
+            })
+            newArr = newArr.filter(item => !!item)
+            // console.log(newArr);return;
+            const result = await logController.log_add_controller({
+              uid,
+              requestUrl: `${newArr[newArr.length-1]}`,
+              status: res.statusCode,
+              requestMethod: req.method.toLowerCase(),
+              requestHost: req.hostname,
+              requestBody: {
+                url: `${req.baseUrl}${req.url}`,
+                body: JSON.stringify(req.body),
+                params: req.params,
+                query: JSON.stringify(req.query)
+              }
+            })
+            // console.log(result ? '写入成功' : '写入失败');
+            // console.log(`request for ${req.baseUrl}${req.url} finished with status ${res.statusCode}`);
+            // if(req.method.toLowerCase() == 'put'){
+            //   console.log(req.body);
+            //   console.log(req.params);
+            //   console.log(req.query)
+            // }
+            
+          })
+        });
 
         //响应超时处理
         // res.on('timeout', function(){
@@ -101,7 +127,7 @@ app.use('/menus', menuRouter);
 app.use('/roles', rolesRouter);
 app.use('/depts', deptsRouter);
 app.use('/dicts', dictsRouter);
-
+app.use('/logs', logsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

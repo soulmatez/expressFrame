@@ -1,3 +1,14 @@
+import moment from 'moment'; //时间插件
+import { Option } from '@/types';
+/*
+ * @Author: Soulmate
+ * @Date: 2023-03-06 11:10:45
+ * @LastEditTime: 2023-03-14 15:55:33
+ * @LastEditors: Soulmate
+ * @Description: 
+ * @FilePath: \template\src\utils\index.ts
+ * 版权声明
+ */
 /**
  * Check if an element has a class
  * @param {HTMLElement} elm
@@ -44,4 +55,24 @@ export function mix(color1: string, color2: string, weight: number) {
   const gStr = ('0' + (g || 0).toString(16)).slice(-2);
   const bStr = ('0' + (b || 0).toString(16)).slice(-2);
   return '#' + rStr + gStr + bStr;
+}
+
+/**
+ * 时间格式修改
+ * @param formType 
+ * @returns 
+ */
+export function format(formType: string, date = Date.now()){
+  var current_time = moment(date).format(formType)
+  return current_time;
+}
+
+/**
+ * 过滤字典数据渲染在html上
+ * @param systemCode 
+ * @param dictArr
+ * @returns 
+ */
+export function filterDictText(systemCode: string, dictArr: Array<Option>) {
+  return dictArr.filter((item: Option) => item.value == systemCode)[0].name
 }
