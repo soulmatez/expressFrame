@@ -11,7 +11,7 @@
           </el-checkbox>
         </el-col>
         <el-col :span="12" style="text-align: right">
-          <el-button type="primary" :icon="Position" @click="handleSubmit"
+          <el-button type="primary" :icon="Position" @click="handleSubmit" v-hasPerm="['sys:role:btnSave']"
             >提交</el-button
           >
         </el-col>

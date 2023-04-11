@@ -1,7 +1,7 @@
 <!--
  * @Author: Soulmate
  * @Date: 2023-02-22 11:12:54
- * @LastEditTime: 2023-03-06 10:12:12
+ * @LastEditTime: 2023-04-11 10:13:40
  * @LastEditors: Soulmate
  * @Description: 
  * @FilePath: \template\src\views\system\menu\components\Perm.vue
@@ -279,6 +279,7 @@ onMounted(() => {
           :icon="Plus"
           :disabled="!menuId"
           @click="handleAdd"
+          v-hasPerm="['sys:perm:add']"
           >新增</el-button
         >
         <el-button
@@ -286,6 +287,7 @@ onMounted(() => {
           :icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
+          v-hasPerm="['sys:perm:del']"
           >删除</el-button
         >
       </el-form-item>
@@ -327,6 +329,7 @@ onMounted(() => {
             :icon="Edit"
             circle
             plain
+            v-hasPerm="['sys:perm:update']"
             @click="handleUpdate(scope.row)"
           />
           <el-button
@@ -334,6 +337,7 @@ onMounted(() => {
             :icon="Delete"
             circle
             plain
+            v-hasPerm="['sys:perm:del']"
             @click="handleDelete(scope.row)"
           />
         </template>

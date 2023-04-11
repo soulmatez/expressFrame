@@ -163,14 +163,14 @@ onMounted(() => {
           :icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
-          >删除</el-button
-        >
+          v-hasPerm="['sys:log:handle:del']"
+          >删除</el-button>
       </el-form-item>
 
       <el-form-item prop="status">
             <el-select
             v-model="queryParams.systemCode"
-            placeholder="系统模块"
+            placeholder="请选择所属模块"
             clearable
             style="width: 200px"
             >
@@ -181,7 +181,7 @@ onMounted(() => {
       <el-form-item prop="status">
             <el-select
             v-model="queryParams.postType"
-            placeholder="请求方式"
+            placeholder="请选择请求方式"
             clearable
             style="width: 200px"
             >
@@ -263,6 +263,7 @@ onMounted(() => {
             :icon="Delete"
             circle
             plain
+            v-hasPerm="['sys:log:handle:del']"
             @click.stop="handleDelete(scope.row)"
           />
         </template>

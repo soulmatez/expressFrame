@@ -25,7 +25,10 @@ const user_list_data = async(req, res) => {
     const orWhere = ['userName', 'nickName', 'phonenumber']
     const orParams = []
     if(status) Object.assign(findParams, {'user.status': status})
-    if(deptId) Object.assign(findParams, {'user.deptId': deptId})
+    if(deptId){
+        let userDeptObj = await deptModel.findById(deptId);
+        if(userDeptObj['parentId'] != '0') Object.assign(findParams, {'user.deptId': deptId})
+    }
     if(keywords) orWhere.forEach(item => {
         if(item == 'nickName'){
             orParams.push({[`user.${item}`]: {

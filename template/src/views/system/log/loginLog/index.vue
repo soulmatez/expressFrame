@@ -141,6 +141,7 @@ onMounted(() => {
                 :icon="Delete"
                 :disabled="multiple"
                 @click="handleDelete"
+                v-hasPerm="['sys:log:login:del']"
                 >删除</el-button
               >
             </el-form-item>

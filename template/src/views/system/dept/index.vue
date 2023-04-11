@@ -206,7 +206,7 @@ onMounted(() => {
   <div class="app-container">
     <el-form ref="queryFormRef" :model="queryParams" :inline="true">
       <el-form-item>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
+        <el-button type="success" :icon="Plus" @click="handleAdd" v-hasPerm="['sys:dept:add']"
           >新增</el-button
         >
         <el-button
@@ -214,6 +214,7 @@ onMounted(() => {
           :icon="Delete"
           :disabled="single"
           @click="handleDelete"
+          v-hasPerm="['sys:dept:del']"
           >删除
         </el-button>
       </el-form-item>
@@ -275,6 +276,7 @@ onMounted(() => {
             type="primary"
             :icon="Edit"
             circle
+            v-hasPerm="['sys:dept:update']"
             plain
             @click.stop="handleUpdate(scope.row)"
           >
@@ -283,6 +285,7 @@ onMounted(() => {
             type="success"
             :icon="Plus"
             circle
+            v-hasPerm="['sys:dept:add']"
             plain
             @click.stop="handleAdd(scope.row)"
           >
@@ -291,6 +294,7 @@ onMounted(() => {
           <el-button
             type="danger"
             :icon="Delete"
+            v-hasPerm="['sys:dept:del']"
             circle
             plain
             @click.stop="handleDelete(scope.row)"

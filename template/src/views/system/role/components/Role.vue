@@ -162,7 +162,7 @@ onMounted(() => {
     <!-- 搜索表单 -->
     <el-form ref="queryFormRef" :model="queryParams" :inline="true">
       <el-form-item>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
+        <el-button type="success" :icon="Plus" @click="handleAdd" v-hasPerm="['sys:role:add']"
           >新增</el-button
         >
         <el-button
@@ -170,6 +170,7 @@ onMounted(() => {
           :icon="Delete"
           :disabled="multiple"
           @click="handleDelete"
+          v-hasPerm="['sys:role:del']"
           >删除</el-button
         >
       </el-form-item>
@@ -209,6 +210,7 @@ onMounted(() => {
           <el-button
             v-if="scope.row.role != 'ROOT'"
             type="primary"
+            v-hasPerm="['sys:role:update']"
             :icon="Edit"
             circle
             plain
@@ -217,6 +219,7 @@ onMounted(() => {
           <el-button
             v-if="scope.row.role != 'ROOT'"
             type="danger"
+            v-hasPerm="['sys:role:del']"
             :icon="Delete"
             circle
             plain

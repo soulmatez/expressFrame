@@ -3,7 +3,7 @@
     <!-- 搜索表单 -->
     <el-form ref="queryFormRef" :model="queryParams" :inline="true">
       <el-form-item>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
+        <el-button type="success" :icon="Plus" @click="handleAdd" v-hasPerm="['sys:menu:add']"
           >新增</el-button
         >
       </el-form-item>
@@ -65,6 +65,7 @@
             :icon="Plus"
             circle
             plain
+            v-hasPerm="['sys:menu:add']"
             @click.stop="handleAdd(scope.row)"
           />
           <el-button
@@ -72,6 +73,7 @@
             :icon="Edit"
             circle
             plain
+            v-hasPerm="['sys:menu:update']"
             @click.stop="handleUpdate(scope.row)"
           />
           <el-button
@@ -79,6 +81,7 @@
             :icon="Delete"
             circle
             plain
+            v-hasPerm="['sys:menu:del']"
             @click.stop="handleDelete(scope.row)"
           />
         </template>

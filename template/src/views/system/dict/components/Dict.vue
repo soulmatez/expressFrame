@@ -10,7 +10,7 @@ export default {
     <!-- 搜索表单 -->
     <el-form ref="queryFormRef" :model="state.queryParams" :inline="true">
       <el-form-item>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
+        <el-button type="success" :icon="Plus" @click="handleAdd" v-hasPerm="['sys:dict:add']"
           >新增</el-button
         >
         <el-button
@@ -18,6 +18,7 @@ export default {
           :icon="Delete"
           :disabled="state.multiple"
           @click="handleDelete"
+          v-hasPerm="['sys:dict:del']"
           >删除
         </el-button>
       </el-form-item>
@@ -64,6 +65,7 @@ export default {
             :icon="Edit"
             circle
             plain
+            v-hasPerm="['sys:dict:update']"
             @click.stop="handleUpdate(scope.row)"
           />
           <el-button
@@ -71,6 +73,7 @@ export default {
             :icon="Delete"
             circle
             plain
+            v-hasPerm="['sys:dict:del']"
             @click.stop="handleDelete(scope.row)"
           />
         </template>

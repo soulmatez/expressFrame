@@ -1,8 +1,9 @@
 const { logModel } = require('../../model/system/log.js');
 const { menuModel } = require('../../model/system/menu.js');
+const { roleModel } = require('../../model/system/role.js');
 const { userModel } = require('../../model/system/user.js');
 const { commonArrayReSort } = require('../../../utils/index').default
-
+const { get_base_userInfo } = require('../base').default
 /**
  * 获取日志
  * @param {*} req 请求数据
@@ -12,7 +13,14 @@ const get_log_page = async(req, res) => {
     let { pageNum, pageSize, postType, handleUser, handleType, systemCode } = req.query;
     const limitNum = parseInt(pageSize);
     const skipNum = (parseInt(pageNum) - 1) * limitNum;
+    // 获取当前用户
+    const baseUser = await get_base_userInfo(req.headers['authorization']);
+    let roleInfo = await roleModel.findById(baseUser.roleIds);
     const findParams = {}
+    if(roleInfo.role != 'ROOT'){
+        Object.assign(findParams, { handleUserId: baseUser._id })
+    }
+    console.log(findParams)
     if(handleType) Object.assign(findParams, { handleType: handleType })
     if(postType) Object.assign(findParams, { postType: postType })
     if(systemCode) Object.assign(findParams, { systemCode: systemCode })
@@ -49,7 +57,8 @@ const log_add_controller = (res, isOtherHandle = false) => {
                         btnPerm: '',
                         requestMethod: res.requestUrl == 'logout' ? res.requestMethod : 'post',
                         serviceName: 'loginSevice',
-                        requestPath: ''
+                        requestPath: '',
+                        isWriteLog: 1
                     }]
                 }
             }];
@@ -64,6 +73,7 @@ const log_add_controller = (res, isOtherHandle = false) => {
                 "meta.permissions.requestMethod": 1,
                 "meta.permissions.serviceName": 1,
                 "meta.permissions.requestPath": 1,
+                "meta.permissions.isWriteLog": 1,
                 "meta.permissions._id.$": 1
               });
             //   if(HookInfo.length > 0 && HookInfo[0].meta.permissions[0].requestMethod == res.requestMethod){
@@ -74,8 +84,8 @@ const log_add_controller = (res, isOtherHandle = false) => {
             //   return;
         }
         
-        
-          if(HookInfo.length && Object.keys(userInfo).length && HookInfo[0].meta.permissions[0].requestMethod == res.requestMethod){
+          console.log(HookInfo[0].meta.permissions[0])
+          if(HookInfo.length && Object.keys(userInfo).length && HookInfo[0].meta.permissions[0].requestMethod == res.requestMethod && HookInfo[0].meta.permissions[0].isWriteLog == 1){
             data = await logModel.create({
                 systemCode: HookInfo[0].meta.permissions[0].serviceName,
                 handleType: $handleType,
