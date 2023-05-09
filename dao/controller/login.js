@@ -1,3 +1,4 @@
+const fs = require('fs')
 const { userModel } = require('../model/system/user.js')
 const { setToken } = require("../../utils/authotoken").default
 const { setCaptcha } = require("../../utils/index").default
@@ -33,7 +34,7 @@ const employee_login = async(req, res) => {
                 requestMethod: req.method.toLowerCase(),
                 requestHost: req.host,
                 requestBody: {}
-            }, true)
+            }, 2)
 
             res.json({
                 code: 200,
@@ -63,13 +64,25 @@ const employee_sign = async (req, res) => {
 
 //处理注销操作
 const employee_logout = (req, res) => {
-    client.set(req.headers['authorization'], '', function(err, rs){
-        client.expire(req.headers['authorization'], 0)
-        res.json({
-            code: 200,
-            msg: "注销成功"
+    client.get(req.headers['authorization'], async function(err, uid){
+        // 公共写入日志
+        await logController.log_add_controller({
+            uid,
+            requestUrl: 'logout',
+            status: 200,
+            requestMethod: req.method.toLowerCase(),
+            requestHost: req.host,
+            requestBody: {}
+        }, 2)
+        client.set(req.headers['authorization'], '', function(err, rs){
+            client.expire(req.headers['authorization'], 0)
+            res.json({
+                code: 200,
+                msg: "注销成功"
+            })
         })
     })
+    
 }
 
 //用户查询操作

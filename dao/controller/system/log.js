@@ -21,7 +21,7 @@ const get_log_page = async(req, res) => {
         Object.assign(findParams, { handleUserId: baseUser._id })
     }
     console.log(findParams)
-    if(handleType) Object.assign(findParams, { handleType: handleType })
+    if(handleType) Object.assign(findParams, { handleType: { $in: handleType.split(',') } })
     if(postType) Object.assign(findParams, { postType: postType })
     if(systemCode) Object.assign(findParams, { systemCode: systemCode })
     if(handleUser) Object.assign(findParams, { handleUser: { $regex: handleUser } })
@@ -42,14 +42,12 @@ const get_log_page = async(req, res) => {
  * @param {*} req 
  * @param {*} res 
  */
-const log_add_controller = (res, isOtherHandle = false) => {
+const log_add_controller = (res, $handleType = 1) => {
     var HookInfo = [];
-    var $handleType = 1;
     return new Promise(async (resolve, reject) => {
         let userInfo = await userModel.findById(res.uid);
         // 如果是登录退出操作
-        if(isOtherHandle || res.requestUrl == 'logout'){
-            $handleType = 2;
+        if($handleType == 2){
             HookInfo = [{
                 meta: {
                     permissions: [{
@@ -62,7 +60,7 @@ const log_add_controller = (res, isOtherHandle = false) => {
                     }]
                 }
             }];
-        }else{
+        }else if($handleType == 1){
             HookInfo = await menuModel.find({ 
                 'meta.permissions.requestPath': { $regex: res.requestUrl},
                 // 'meta.permissions.requestMethod': res.requestMethod,
@@ -76,15 +74,20 @@ const log_add_controller = (res, isOtherHandle = false) => {
                 "meta.permissions.isWriteLog": 1,
                 "meta.permissions._id.$": 1
               });
-            //   if(HookInfo.length > 0 && HookInfo[0].meta.permissions[0].requestMethod == res.requestMethod){
-            //     console.log(HookInfo[0].meta.permissions, 'console.log(HookInfo)')
-            //     console.log(res.requestUrl, 'console.log(res.requestUrl)')
-            //     console.log(res.requestMethod, 'console.log(res.requestMethod)')
-            //   }
-            //   return;
+        }else{
+            HookInfo = [{
+                meta: {
+                    permissions: [{
+                        name: res.name,
+                        requestMethod: res.requestMethod,
+                        serviceName: res.serviceName,
+                        requestPath: '',
+                        isWriteLog: 1
+                    }]
+                }
+            }];
         }
-        
-          console.log(HookInfo[0].meta.permissions[0])
+
           if(HookInfo.length && Object.keys(userInfo).length && HookInfo[0].meta.permissions[0].requestMethod == res.requestMethod && HookInfo[0].meta.permissions[0].isWriteLog == 1){
             data = await logModel.create({
                 systemCode: HookInfo[0].meta.permissions[0].serviceName,

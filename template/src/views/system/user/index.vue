@@ -803,7 +803,7 @@ onMounted(() => {
             :data="deptOptions"
             filterable
             check-strictly
-            :props="{ value: '_id', label: 'deptName'}"
+            :props="{ value: '_id', label: 'label'}"
             value-key="_id"
             node-key="_id"
           />

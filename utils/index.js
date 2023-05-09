@@ -1,3 +1,4 @@
+const fs = require("fs")
 const svgCaptcha = require("svg-captcha")  // 加载图片验证码模块+
 const moment = require('moment');  //时间戳插件
 var mongoose = require('mongoose');
@@ -203,9 +204,21 @@ function removeNode(array, filter){
     return array
 }
 
+/**
+ * 检测是否需要转换base64
+ */
+function avatarCheck(path){
+    try {
+        const newPath = fs.readFileSync(path, 'base64')
+        return `data:image/png;base64,${newPath}`
+    }
+    catch {
+        return path
+    }
+}
 
 
 exports.default = {
     setCaptcha, format, noRepeat, recursionOtherArray, recursionRoleArray, splitArray,
-    ObjectId, arrDelete, compare, commonArrayReSort
+    ObjectId, arrDelete, compare, commonArrayReSort, avatarCheck
 }

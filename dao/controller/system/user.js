@@ -4,6 +4,7 @@ const { userModel } = require('../../model/system/user.js')
 const { deptModel } = require('../../model/system/dept.js')
 const { roleModel } = require('../../model/system/role.js');
 const { menuModel } = require("../../model/system/menu.js");
+const { chatUserModel } = require('../../../api/model/chat/user.js')
 const { setToken } = require("../../../utils/authotoken").default
 const { setCaptcha, format, noRepeat } = require("../../../utils/index").default
 const { _pubkey, _prikey, decrypt } = require('../../../utils/keyStore').default
@@ -38,7 +39,7 @@ const user_list_data = async(req, res) => {
             orParams.push({[`user.${item}`]: keywords})
         }
     })
-    const data = await userModel.find(findParams).or(orParams).select('user').skip(skipNum).limit(limitNum);
+    const data = await userModel.find(findParams).or(orParams).select('user').sort({'_id':-1}).skip(skipNum).limit(limitNum);
     let list = [];
     data.forEach((item, index) => {
         list.push({...item.user, _id: item._id})
@@ -48,7 +49,7 @@ const user_list_data = async(req, res) => {
         msg: "获取成功",
         data: {
             list: list,
-            total: data.length
+            total: await userModel.find(findParams).find().count()
         }
     })
 }
@@ -233,11 +234,12 @@ const user_updatePart_controller = async(req, res) => {
  */
 const user_del_controller = async(req, res) => {
     let { userIds } = req.body;
-    const data = await userModel.remove({ _id: { $in: userIds.split(',') } });;
+    await userModel.remove({ _id: { $in: userIds.split(',') } });
+    //删除chatGPT服务用户表
+    await chatUserModel.remove({ uid: { $in: userIds.split(',') } });
     res.json({
         code: 200,
-        msg: "删除成功",
-        data
+        msg: "删除成功"
     })
 }
 

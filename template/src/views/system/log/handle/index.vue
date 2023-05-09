@@ -35,7 +35,7 @@ const state = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    handleType: 1,
+    handleType: '1,3',
     handleUser: '',
     postType: '',
     systemCode: ''
@@ -220,6 +220,7 @@ onMounted(() => {
         <template #default="scope">
             {{ microServiceOptions.filter((item) => item.value == scope.row.systemCode)[0].name }}
         </template>
+        
       </el-table-column>
       
       <!-- <el-table-column label="操作类型" prop="clientSecret" width="100" /> -->

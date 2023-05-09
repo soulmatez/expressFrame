@@ -1,10 +1,10 @@
 /*
  * @Author: Soulmate
  * @Date: 2023-02-17 15:48:57
- * @LastEditTime: 2023-03-15 16:05:37
+ * @LastEditTime: 2023-04-19 14:33:03
  * @LastEditors: Soulmate
  * @Description: 
- * @FilePath: \template\src\types\api\system\log.d.ts
+ * @FilePath: \express-frame\template\src\types\api\system\log.d.ts
  * 版权声明
  */
 /**
@@ -44,7 +44,7 @@ export interface LogResult {
  * 日志查询参数类型声明
  */
 export interface LogQueryParam extends PageQueryParam {
-    handleType: Number | undefined;
+    handleType: any | undefined;
     handleUser: string | undefined;
     postType: string | undefined;
     systemCode: string | undefined;
